@@ -1,0 +1,50 @@
+.album {
+  padding: 3rem 3rem 3rem 3rem;
+  background-color: #212529;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  flex-flow: row wrap;
+}
+
+.clips {
+  padding: 1em;
+  display:flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.cards {
+  padding-top: 0.5rem;
+  background-color: #424242;
+}
+
+.userlinks {
+  color: #b8b8b8;
+  text-decoration: none;
+}
+
+.userlinks:hover {
+  color: #42b983;
+  text-decoration: underline;
+}
+
+.created_at {
+  float: left;
+}
+
+.download_button {
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+}
+
+.download_button a {
+  color:#42b983;
+  text-decoration: none;
+}
+
+.bottom_info {
+  display: flex;
+  color: #b8b8b8;
+  flex-direction: row;
+  width: auto;
+}

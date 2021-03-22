@@ -1,0 +1,17 @@
+.tablewrapper {
+  display: block;
+  position: relative;
+  height: 820px;
+  overflow: auto;
+}
+
+.tablewrapper thead th {
+  position: sticky;
+  top: 0;
+}
+
+.main {
+  background-color: #212529;
+  padding: 1em 4em 1em 4em;
+  height: 100vh;
+}
