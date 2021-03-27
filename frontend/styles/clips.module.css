@@ -8,7 +8,7 @@
 
 .clips {
   padding: 1em;
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: auto;
 }
@@ -38,8 +38,8 @@
 }
 
 .download_button a {
-  color:#42b983;
   text-decoration: none;
+  color: #42b983;
 }
 
 .bottom_info {
@@ -47,4 +47,28 @@
   color: #b8b8b8;
   flex-direction: row;
   width: auto;
+}
+
+.clip_form {
+  padding: 1rem 0;
+  background-color: #212529;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.h1 {
+  font-family: "Bungee", cursive;
+  color: #42b983;
+  text-shadow: 3px 3px black;
+}
+
+.main {
+  height: 100vh;
+}
+
+.video {
+  width: 100%;
 }

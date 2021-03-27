@@ -14,7 +14,7 @@ export default function logs() {
             .nav-link {
                 font-family: "Roboto", sans-serif;
                 font-weight: bold;
-                color: #6768698e;
+                color: #b8b8b8;
                 text-decoration: none;
             }
             
@@ -32,10 +32,16 @@ export default function logs() {
                 height={128}
             />
             <h1 className={styles.h1}>The Den</h1>
-            <Nav className="">
-                <Link href="/logs"><Nav.Link as="a" href="/logs"><a>Logs</a></Nav.Link></Link>,
-                <Link href="/clips"><Nav.Link as="a" href="/clips"><a>Clips</a></Nav.Link></Link>,
-                <Link href="/docs"><Nav.Link as="a" href="/docs"><a>Docs</a></Nav.Link></Link>
+            <Nav>
+                <Nav.Item>
+                    <Nav.Link href="/">Home</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/clips">Clips</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/docs">Docs</Nav.Link>
+                </Nav.Item>
             </Nav>
             <UserForm/>
             </main>

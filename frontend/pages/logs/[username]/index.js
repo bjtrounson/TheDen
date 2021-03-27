@@ -7,8 +7,9 @@ import Table from 'react-bootstrap/Table'
 import styles from '../../../styles/logs.module.css'
 import parse from 'html-react-parser';
 import sanitizeHtml from 'sanitize-html';
+var dateFormat = require("dateformat");
 
-function userLogs ({ logs }) {
+function userLogs ({ logs, url }) {
     return <>
         <Header/>
         <main className={styles.main}>
@@ -24,10 +25,10 @@ function userLogs ({ logs }) {
                     </thead>
                     <tbody>
                         {logs.map(logs => (
-                            <tr>
+                            <tr key={logs.display_name}>
                                 <td>{logs.display_name}</td>
                                 <td>{logs.channel_name}</td>
-                                <td>{logs.date_sent}</td>
+                                <td>{dateFormat(logs.date_sent, "yyyy-mm-dd hh:MM:ss")}</td>
                                 <td>{parse(logs.message)}</td>
                             </tr>
                         ))}
@@ -40,9 +41,9 @@ function userLogs ({ logs }) {
 }
 
 async function getLogs(username) {
-    const logRes = await fetch(`http://127.0.0.1:4000/logs/${username}`);
+    const logRes = await fetch(`${process.env.API}/logs/${username}`);
     const logs = await logRes.json();
-    const channelRes = await fetch(`http://127.0.0.1:4000/channels`);
+    const channelRes = await fetch(`${process.env.API}/channels`);
     const channels = await channelRes.json();
     const globalEmoteURLS = [`https://api.twitchemotes.com/api/v4/channels/${channels.id}`]
     const bttvEmoteURLS = channels.map(channels => { 
@@ -120,9 +121,11 @@ async function getLogs(username) {
 
 export const getServerSideProps = async (context) => { 
     var logs = await getLogs(context.params.username);
+    const url = `${process.env.PUBLIC_HOST}`
     return {
         props: {
-            logs
+            logs,
+            url
         }
     }
 }

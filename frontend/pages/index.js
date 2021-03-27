@@ -11,7 +11,7 @@ export default function Home() {
           .nav-link {
             font-family: "Roboto", sans-serif;
             font-weight: bold;
-            color: #6768698e;
+            color: #b8b8b8;
             text-decoration: none;
           }
           

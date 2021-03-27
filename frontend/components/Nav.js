@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import LinkContainer from 'react-router-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
@@ -30,11 +31,17 @@ const Header = () => {
                     width="32"
                     height="32"
                 />
-                <Link href="/"><Navbar.Brand as="a" href="/"><a>The Den</a></Navbar.Brand></Link>
+                <Link href="/"><Navbar.Brand as="a" href="/">The Den</Navbar.Brand></Link>
                 <Nav className="mr-auto">
-                    <Link href="/logs"><Nav.Link as="a" href="/logs"><a>Logs</a></Nav.Link></Link><br/>
-                    <Link href="/clips"><Nav.Link as="a" href="/clips"><a>Clips</a></Nav.Link></Link><br/>
-                    <Link href="/docs"><Nav.Link as="a" href="/docs"><a>Docs</a></Nav.Link></Link><br/>
+                    <Nav.Item>
+                        <Nav.Link href="/logs">Logs</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/clips">Clips</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/docs">Docs</Nav.Link>
+                    </Nav.Item>
                 </Nav>
             </Navbar>
         </>
