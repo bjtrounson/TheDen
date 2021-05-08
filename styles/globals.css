@@ -1,0 +1,30 @@
+:root {
+  --p-color: hsl(0, 0%, 26%);
+  --p-dark: hsl(0, 0%, 11%);
+  --p-light: hsl(0, 0%, 43%);
+  --p-font: hsl(0, 0%, 100%);
+  --s-color: hsl(123, 38%, 57%);
+  --s-dark: hsl(128, 46%, 37%);
+  --s-light: hsl(121, 72%, 76%);
+  --s-font: hsl(0, 0%, 0%);
+}
+
+html,
+body {
+  background-color: var(--p-color);
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+

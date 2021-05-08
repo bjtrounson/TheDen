@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model channels {
+  id           Int        @id @default(autoincrement())
+  channel_name String     @db.VarChar(25)
+  messages     messages[]
+  vods         vods[]
+}
+
+model clips {
+  id               Int       @id @default(autoincrement())
+  title            String?   @db.VarChar(50)
+  broadcaster_name String?   @db.VarChar(25)
+  creator_name     String?   @db.VarChar(25)
+  created_at       DateTime? @db.DateTime(0)
+  thumbnail_url    String?   @db.VarChar(100)
+  clip_url         String?   @db.VarChar(100)
+  mp4_url          String?   @db.VarChar(100)
+  video_id         Int?
+  clip_id          String?   @db.VarChar(100)
+}
+
+model messages {
+  id           Int       @id @default(autoincrement())
+  user_id      Int?
+  channel_id   Int?
+  vod_id       Int?
+  display_name String?   @db.VarChar(25)
+  date_sent    DateTime? @db.DateTime(0)
+  message      String?   @db.VarChar(500)
+  channels     channels? @relation(fields: [channel_id], references: [id])
+  vods         vods?     @relation(fields: [vod_id], references: [id])
+
+  @@index([channel_id], name: "channel_id")
+  @@index([user_id, channel_id], name: "user_channel_index")
+  @@index([vod_id], name: "vod_id")
+}
+
+model vods {
+  id         Int        @id @default(autoincrement())
+  channel_id Int?
+  started_at DateTime?  @db.DateTime(0)
+  youtube_id String?    @db.VarChar(20)
+  channels   channels?  @relation(fields: [channel_id], references: [id])
+  messages   messages[]
+
+  @@index([channel_id], name: "channel_id")
+}

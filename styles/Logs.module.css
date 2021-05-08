@@ -1,0 +1,134 @@
+.main {
+  background: var(--p-color);
+  padding: 1em;
+  box-shadow: inset 0px 4px 4px hsla(0, 0%, 0%, 0.25);
+}
+
+.table {
+  background: var(--p-light);
+  color: var(--p-font);
+  padding: 1em 0em;
+  box-shadow: 0px 4px 4px hsla(0, 0%, 0%, 0.25);
+}
+
+.tHead {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0em 1em 1em 1em;
+}
+
+.thBold {
+  font: normal 700 18px/21px 'Roboto', sans-serif;
+}
+
+.thSmall {
+  font: normal 700 11px/13px 'Roboto', sans-serif;
+}
+
+.thCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.tBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--p-font);
+  padding: 0em 1em 0em 1em;
+}
+
+.tbCol {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  word-wrap: break-word;
+}
+
+.tbBold {
+  display: flex;
+  flex-wrap: wrap;
+  font: normal 400 18px/21px 'Roboto', sans-serif;
+}
+
+.tbSmall {
+  font: normal 400 11px/13px 'Roboto', sans-serif;
+}
+
+.pagination {
+  display: flex;
+  padding: 1em 0.5em;
+  align-items: center;
+}
+
+.controlWrapper {
+  display: flex;
+  margin-left: auto;
+}
+
+.limitWrapper {
+  display: flex;
+  margin-right: auto;
+}
+
+.control {
+  display: inline-flex;
+  padding: 0 1em;
+  margin-right: 0.5em;
+  color: var(--s-font);
+  background-color: var(--s-color);
+  border: 1px solid var(--s-color);
+  box-shadow: 0px 4px 4px hsla(0, 0%, 0%, 0.25);
+  border-radius: .25em;
+  cursor: pointer;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.limitInput {
+  display: flex;
+  padding:  0 .5em;
+  margin-right: 0.5em;
+  appearance: none;
+  color: var(--s-font);
+  background-color: var(--s-color);
+  border: 1px solid var(--s-color);
+  box-shadow: 0px 4px 4px hsla(0, 0%, 0%, 0.25);
+  border-radius: .25em;
+  align-items: center;
+}
+
+.limitInput input {
+  background-color: var(--s-light);
+  border: 1px solid var(--s-color);
+  text-align: center;
+  border-radius: .5em;
+  box-shadow: inset 1px 1px 1px 1px hsla(0, 0%, 0%, 0.25);
+  padding: 0em 0.2em;
+}
+
+.limitInput p {
+  margin: auto;
+}
+
+.limiter {
+  display: block;
+  appearance: none;
+  padding: .4em 1.4em .5em .3em;
+  border: 1px solid var(--s-color);
+  border-radius: .25em;
+  box-shadow: 0px 4px 4px hsla(0, 0%, 0%, 0.25);
+  color: var(--s-font);
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  background-color: var(--s-color);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, repeat;
+  background-position: right .3em top 80%, 0 0;
+  background-size: 1.5em 100%;
+}
