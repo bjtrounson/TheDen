@@ -132,3 +132,11 @@
   background-position: right .3em top 80%, 0 0;
   background-size: 1.5em 100%;
 }
+
+.links {
+  color: var(--s-light)
+}
+
+.links:hover {
+  color: var(--s-color)
+}

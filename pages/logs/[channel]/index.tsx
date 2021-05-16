@@ -4,15 +4,18 @@ import parse from 'html-react-parser'
 import useSWR from 'swr'
 import Spinner from 'react-spinner-material'
 import styles from '../../../styles/Logs.module.css'
-import AutoSizeInput from 'react-input-autosize'
 import Head from 'next/head'
 import Nav from '../../../components/Nav'
 
+String.prototype.replaceAt = function(startIndex, endIndex, replacement) {
+    return this.substring(0, startIndex) +  replacement + this.substring(endIndex + 1);
+}
+
 const fetcher = (url) => fetch(url).then(res => res.json())
 
-function useLogs (page, limit, username) {
-    const { data, error, isValidating } = useSWR(`/api/logs/${username}/?page=${page}&limit=${limit}`, fetcher)
-
+function useLogs (cursor, limit, channelName) {
+    const { data, error, isValidating } = useSWR(`/api/logs/${channelName}?cursor=${cursor}&limit=${limit}`, fetcher)
+    
     return {
         logs: data,
         isLoading: !error && !data,
@@ -20,28 +23,23 @@ function useLogs (page, limit, username) {
     }
 }
 
-export default function Logs({ username }) {
+export default function Logs({ channelName }) {
     const [limit, setLimit] = useState(10);
-    const [page, setPage] = useState(1);
-    const { logs, isLoading, isError } = useLogs(page, limit, username)
+    const [cursor, setCursor] = useState("");
+    const { logs, isLoading, isError } = useLogs(cursor, limit, channelName)
 
     const navigateForward = () => {
-        if (page == logs[0].dataInfo[0].length) {
-            return null
-        }
-        setPage(page + 1)
+        setCursor(logs.paginationCursor)
     }
 
     const navigateBackward = () => {
-        if (page == 1) {
-            return null
-        }
-        setPage(page -1)
+        
     }
 
     return (
         <div>
             <Head>
+                <title>The Den | {channelName}</title>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
             </Head>
             <Nav/>
@@ -58,25 +56,24 @@ export default function Logs({ username }) {
                         </div>
                     </div>
                     {isError ? <div></div> : isLoading ? <div className={styles.loading}><Spinner radius={64} color={"hsl(123, 38%, 57%)"} stroke={2} visible={true}/></div> :
-                        logs[1].messages.map((logs) => (
-                            <div key={logs.id} className={styles.tBody}>
+                        logs.chatMessages.map((logs) => (
+                            <div key={logs.messageId} className={styles.tBody}>
                                 <div className={styles.tbCol}>
-                                    <div className={styles.tbBold}>{logs.display_name}</div>
-                                    <div className={styles.tbSmall}>{logs.channels.channel_name}</div>
+                                    <div className={styles.tbBold}><a className={styles.links} href={`https://twitch.tv/${logs.userDisplayName}`}>{logs.userDisplayName}</a></div>
+                                    <div className={styles.tbSmall}>{logs.channelDisplayName}</div>
                                 </div>
                                 <div className={styles.tbCol}>
-                                    <div className={styles.tbBold}>{parse(logs.message)}</div>
-                                    <div className={styles.tbSmall}>{dateFormat(logs.date_sent, "yyyy-mm-dd hh:MM:ss")}</div> 
+                                    <div className={styles.tbBold}>{logs.emotes[0] == undefined ? logs.message : logs.emotes.map((emotes) => (
+                                        parse(logs.message.replaceAt(emotes.startIndex, emotes.endIndex, `<img src="${emotes.emoteUrl[0]}" />`))
+                                    ))}</div>
+                                    <div className={styles.tbSmall}>{dateFormat(logs.timestamp, "dd/mm/yyyy hh:MM:sstt Z")}</div> 
                                 </div>
                             </div>
                         ))
                     }
                     <div className={styles.pagination}>
                         <div className={styles.limitWrapper}>
-                            <div className={styles.limitInput}>
-                                <p>Page: </p><AutoSizeInput value={page} type="number" min={1} max={isLoading ? null : logs[0].dataInfo[0].length} onChange={e => setPage(e.target.value)}/><p>/ {isLoading ? null : Math.round(logs[0].dataInfo[0].length)}</p>
-                            </div>
-                            <select className={styles.limiter} value={limit} onChange={(e) => setLimit(e.target.value)}>
+                            <select className={styles.limiter} value={limit} onChange={e => setLimit(e.target.value)}>
                                 <option value={10}>10</option>
                                 <option value={20}>20</option>
                                 <option value={30}>30</option>
@@ -94,10 +91,11 @@ export default function Logs({ username }) {
 }
 
 export const getServerSideProps = async (context) => { 
-    const username = context.params.username;
+    const channelName = context.params.channel;
+
     return {
         props: {
-            username
+            channelName
         }
     }
 }
