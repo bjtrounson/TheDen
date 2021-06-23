@@ -14,7 +14,6 @@ import MovieIcon from '@material-ui/icons/Movie';
 import SearchIcon from '@material-ui/icons/Search'
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import useTheme from '@material-ui/core/styles/useTheme';
-import { signIn, signOut, useSession } from 'next-auth/client'
 
 const drawerWidth = 240;
 
