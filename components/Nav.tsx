@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import clsx from 'clsx';
 import { makeStyles, createStyles, fade } from '@material-ui/core/styles';
-import { AppBar, Drawer, IconButton, Toolbar, CssBaseline, ListItem, Divider, List, FormControl, MenuItem, Select, InputLabel} from '@material-ui/core'
+import { AppBar, Drawer, IconButton, Toolbar, CssBaseline, ListItem, Divider, List, FormControl, MenuItem, Select, InputLabel, Typography, Button} from '@material-ui/core'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -14,6 +14,7 @@ import MovieIcon from '@material-ui/icons/Movie';
 import SearchIcon from '@material-ui/icons/Search'
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import useTheme from '@material-ui/core/styles/useTheme';
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 const drawerWidth = 240;
 
@@ -96,10 +97,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         marginLeft: 0,
         width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(1),
-          width: '30%',
-        },
       },
       searchIcon: {
         padding: theme.spacing(0, 2),
@@ -129,7 +126,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       inputSelect: {
         color: theme.palette.primary.contrastText,
-      }
+      },
+      title: {
+        flexGrow: 1,
+      },
   }),
 );
 
@@ -167,27 +167,9 @@ const Nav = () => {
             >
                 <MenuIcon />
             </IconButton>
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon />
-                </div>
-                <div color="primary" className={classes.inputRoot}>
-                    <FormControl className={classes.form}>
-                        <InputLabel className={classes.inputLabel} id="demo-simple-select-label">Twitch Channel</InputLabel>
-                        <Select
-                            className={classes.inputSelect}
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={user}
-                            onChange={(e) => {setUser(e.target.value)}}
-                        >
-                        <MenuItem onClick={() => {router.push(`/logs/EsfandTV`)}} color="primary" value={"EsfandTV"}>EsfandTV</MenuItem>
-                        <MenuItem onClick={() => {router.push(`/logs/Asmongold`)}} color="primary" value={"Asmongold"}>Asmongold</MenuItem>
-                        <MenuItem onClick={() => {router.push(`/logs/Mizkif`)}} color="primary" value={"Mizkif"}>Mizkif</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-            </div>
+            <Typography variant="h6" className={classes.title}>
+              The Den
+            </Typography>
             </Toolbar>
         </AppBar>
         <Drawer
@@ -206,6 +188,30 @@ const Nav = () => {
             </div>
             <Divider />
             <List>
+            <ListItem>
+              <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                      <SearchIcon />
+                  </div>
+                  <div color="primary" className={classes.inputRoot}>
+                      <FormControl className={classes.form}>
+                          <InputLabel className={classes.inputLabel} id="demo-simple-select-label">Twitch Channel</InputLabel>
+                          <Select
+                              className={classes.inputSelect}
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={user}
+                              onChange={(e) => {setUser(e.target.value)}}
+                          >
+                          <MenuItem onClick={() => {router.push(`/logs/EsfandTV`)}} color="primary" value={"EsfandTV"}>EsfandTV</MenuItem>
+                          <MenuItem onClick={() => {router.push(`/logs/Asmongold`)}} color="primary" value={"Asmongold"}>Asmongold</MenuItem>
+                          <MenuItem onClick={() => {router.push(`/logs/Mizkif`)}} color="primary" value={"Mizkif"}>Mizkif</MenuItem>
+                          </Select>
+                      </FormControl>
+                  </div>
+              </div>
+            </ListItem>
+            <Divider />
             {['Home', 'Clips', 'Documentation'].map((text, index) => (
                 <ListItem button key={text} onClick={() => {
                     if (text == 'Home') {
@@ -217,6 +223,7 @@ const Nav = () => {
                 <ListItemText primary={text} />
                 </ListItem>
             ))}
+            <Divider/>
             </List>
         </Drawer>
       </div>
