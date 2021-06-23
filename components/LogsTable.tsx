@@ -108,8 +108,8 @@ interface LogsTable {
     isLoading: boolean,
     limit: number,
     setLimit: Dispatch<SetStateAction<number>>,
-    username: string,
-    setUsername: Dispatch<SetStateAction<string>>
+    username: string | undefined,
+    setUsername: Dispatch<SetStateAction<string | undefined>>
 }
 
 const LogsTable: FunctionComponent<LogsTable> = ({logs, navigateForward, navigateBackward, isError, isLoading, limit, setLimit, username, setUsername}) => {

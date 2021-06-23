@@ -201,7 +201,7 @@ const Nav = () => {
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               value={user}
-                              onChange={(e) => {setUser(e.target.value)}}
+                              onChange={(e) => {setUser(e.target.value as string)}}
                           >
                           <MenuItem onClick={() => {router.push(`/logs/EsfandTV`)}} color="primary" value={"EsfandTV"}>EsfandTV</MenuItem>
                           <MenuItem onClick={() => {router.push(`/logs/Asmongold`)}} color="primary" value={"Asmongold"}>Asmongold</MenuItem>
